@@ -1,8 +1,10 @@
 package at.htl.exam01.document;
 
-abstract public class Main {
+import java.util.Arrays;
 
-    
+public class Main {
+
+
     /**
      * Führen Sie hier folgendes durch:
      * <p>
@@ -22,14 +24,36 @@ abstract public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        String[] title = {"Rowlings", "Harry Potter und der Stein der Weisen"};
-        String[] title2 = {"Tolkien", "lordOfTheRings"};
-        String[] email = {"Susi", "Bewerbung", "CoolCompany"};
-    }
 
-    String[] document = {
-            Book,
-            Email;
+        Book book = new Book("Rowlings", "Harry Potter und der Stein der Weisen");
+        Email email = new Email("Susi", "Bewerbung", "CoolCompany");
+        Book book2 = new Book("Tolkien", "lordOfTheRings");
+
+        Documents[] documents = {
+                book,
+                email,
+                book2
+        };
+
+        System.out.println(Arrays.toString(documents));
+
+        int bookcounter = 0;
+        int emailcounter = 0;
+
+        for (int i = 0; i < documents.length; i++) {
+            if (documents[i] instanceof Book) {
+                System.out.println("Book: " + documents[i]);
+                bookcounter++;
+            } else if (documents[i] instanceof Email) {
+                System.out.println("Email: " + documents[i]);
+                emailcounter++;
+            }
+        }
+
+        System.out.println();
+        System.out.println("Anzahl Books: " + bookcounter + "");
+        System.out.println("Anzahl Email: " + emailcounter + "");
+
     }
 }
 

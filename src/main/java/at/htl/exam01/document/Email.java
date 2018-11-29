@@ -1,12 +1,19 @@
 package at.htl.exam01.document;
 
-public class Email extends Main {
+public class Email extends Documents {
 
-    private static final String subject = "Bewerbung";
-    private static final String to = "Susi";
+    private String subject;
 
-    public String Email(String author, String subject, String to) {
-        return Email(author, subject, to);
+    private String to;
+    public Email(String author, String subject, String to) {
+        super(author);
+        this.subject = subject;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "\nEmail: '" + subject + "' von '" + getAuthor() + "' an '" + to + "'";
     }
 
     public String getSubject() {
@@ -16,5 +23,4 @@ public class Email extends Main {
     public String getTo() {
         return to;
     }
-
 }

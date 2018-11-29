@@ -1,6 +1,5 @@
 package at.htl.exam01.compress;
 
-import javax.sound.sampled.Line;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
@@ -19,11 +18,7 @@ public class StringCompress {
         StringCompress sc = new StringCompress();
         String[] text = sc.readFromFile(FILE_NAME);
         sc.print(text);
-
-
     }
-
-
 
     /**
      *
@@ -44,22 +39,22 @@ public class StringCompress {
      * @param fileName
      * @return String-Array mit dem entpacktem Text
      */
-    private String[] readFromFile(String fileName) {
+    public String[] readFromFile(String fileName) {
 
+        String[] zeilen = new String[getNoOfLines(fileName)];
         int counter = 0;
 
         try (Scanner scanner = new Scanner(new FileReader(fileName))) {
-            while (fileName.equals(scanner.hasNextLine())) {
+            while (scanner.hasNextLine()) {
+                zeilen[counter] = scanner.nextLine();
                 counter++;
-                scanner.nextLine();
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
-        System.out.println(counter);
-        return readFromFile(fileName);
-    }
 
+        return zeilen;
+    }
 
     /**
      * Der Inhalt des String-Arrays wird zeilenweise auf der Console ausgegeben
@@ -69,6 +64,17 @@ public class StringCompress {
      */
     public void print(String[] lines) {
 
+        char buchstabe;
+        int zahl;
+
+        for (int i = 0; i < lines.length; i++) {
+            buchstabe = lines[i].charAt(0);
+            zahl = Integer.valueOf(lines[i].substring(1));
+            for (int j = 0; j < zahl; j++) {
+                System.out.print(buchstabe);
+            }
+            System.out.println();
+        }
     }
 
     /**
@@ -77,8 +83,19 @@ public class StringCompress {
      * @param fileName
      * @return Anzahl der Zeilen in der Textdatei
      */
+
     public int getNoOfLines(String fileName) {
 
-        return -1;
+        int anzahl = 0;
+
+        try (Scanner scanner = new Scanner(new FileReader(fileName))) {
+            while (scanner.hasNextLine()) {
+                scanner.nextLine();
+                anzahl++;
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+        return anzahl;
     }
 }
